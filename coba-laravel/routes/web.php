@@ -47,40 +47,15 @@ Route::get('/categories', function () {
 });
 
 Route::get('/categories/{category:slug}', function(Category $category){
-    return view('category', [
-        'title' =>$category->name,
-        'posts' =>$category->posts,
-        'category' => $category->name
+    return view('posts', [
+        'title' => "Post By Category : $category->name ",
+        'posts' =>$category->posts->load('category', 'author')
     ]);
 });
 
 Route::get('/authors/{author:username}', function(User $author){
     return view('posts', [
-        'title' => 'user Posts',
-        'posts' =>$author->posts,
+        'title' => "Post By Author : $author->name",
+        'posts' => $author->posts->load('category', 'author'),
     ]);
 });
-
-// Route::get('/blog', function () {
-
-//     $posts = [
-//         [
-//             "title" => "Judul Blog Pertama",
-//             "slug" => "judul-blog-pertama", 
-//             "author" => "Zaskha Sasmita",
-//             "body" => "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente rerum consequuntur error eos iste, qui expedita ratione quod numquam recusandae culpa itaque laborum. Animi culpa provident sed magni odio blanditiis amet placeat quasi, voluptate, nobis rem rerum, expedita officia delectus voluptatem accusantium quam ipsa quaerat qui exercitationem esse eaque ipsam ea. Amet tempora praesentium, doloremque a voluptatibus quam quidem molestias eaque nobis similique minima placeat alias optio rerum consequuntur repudiandae impedit est eveniet quis voluptates ipsum officia id! Quod, id."
-//         ] ,
-//         [
-//             "title" => "Judul Blog Kedua",
-//             "slug" => "judul-blog-kedua",
-//             "author" => "Mang Agus",
-//             "body" => "Lorem ipsum dolor sit, ametsum dolor sit, amet consectetur adipsum dolor sit, amet consectetur adipsum dolor sit, amet consectetur adipsum dolor sit, amet consectetur adipsum dolor sit, amet consectetur adipsum dolor sit, amet consectetur adip consectetur adipisicing elit. Sapiente rerum consequuntur error eos iste, qui expedita ratione quod numquam recusandae culpa itaque laborum. Animi culpa provident sed magni odio blanditiis amet placeat quasi, voluptate, nobis rem rerum, expedita officia delectus voluptatem accusantium quam ipsa quaerat qui exercitationem esse eaque ipsam ea. Amet tempora praesentium, doloremque a voluptatibus quam quidem molestias eaque nobis similique minima placeat alias optio rerum consequuntur repudiandae impedit est eveniet quis voluptates ipsum officia id! Quod, id."
-//         ]
-//         ];
-
-        
-//     return view('posts', [
-//         "title" => "Posts",
-//         "posts" => $posts
-//     ]);
-// });
